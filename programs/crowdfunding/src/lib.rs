@@ -1,12 +1,10 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::entrypoint::ProgramResult;
 
-declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+declare_id!("3RYu27g4uqZzerWvnw6wMgFNcZqgBZsSSMYTRRzFCFYt");
 
 #[program]
 pub mod crowdfunding {
-    use anchor_lang::solana_program::system_instruction::transfer;
-
     use super::*;
 
     pub fn create(ctx: Context<Create>, name: String, description: String) -> ProgramResult {
@@ -53,7 +51,7 @@ pub mod crowdfunding {
             ],
         )?;
 
-        (&mut ctx.accounts.campaign).amount_donated = amount;
+        ctx.accounts.campaign.amount_donated += amount;
 
         Ok(())
     }
